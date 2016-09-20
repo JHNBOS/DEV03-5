@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DEVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="addresses">
+    <Key>
+      <PropertyRef Name="postal_code" />
+      <PropertyRef Name="country" />
+    </Key>
+    <Property Name="postal_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="street" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="number" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="city" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="employee_adresses" Relationship="Self.fk_employeeadresses_1" FromRole="addresses" ToRole="employee_adresses" />
+    <NavigationProperty Name="headquarter_addresses" Relationship="Self.fk_headquarteraddresses_1" FromRole="addresses" ToRole="headquarter_addresses" />
+  </EntityType>
+  <EntityType Name="assigned">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="project_id" Type="Int32" />
+    <Property Name="position_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="projects" Relationship="Self.fk_projectpositions_0" FromRole="assigned" ToRole="projects" />
+    <NavigationProperty Name="positions" Relationship="Self.fk_projectpositions_1" FromRole="assigned" ToRole="positions" />
+  </EntityType>
+  <EntityType Name="degrees">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="course" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="school" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="level" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="employee_degrees" Relationship="Self.fk_employeedegrees_0" FromRole="degrees" ToRole="employee_degrees" />
+  </EntityType>
+  <EntityType Name="employee_adresses">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="emp_bsn" Type="Int32" Nullable="false" />
+    <Property Name="addr_postal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="addr_country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="addresses" Relationship="Self.fk_employeeadresses_1" FromRole="employee_adresses" ToRole="addresses" />
+    <NavigationProperty Name="employees" Relationship="Self.fk_employeeadresses_0" FromRole="employee_adresses" ToRole="employees" />
+  </EntityType>
+  <EntityType Name="employee_degrees">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="degree_id" Type="Int32" />
+    <Property Name="emp_bsn" Type="Int32" />
+    <NavigationProperty Name="degrees" Relationship="Self.fk_employeedegrees_0" FromRole="employee_degrees" ToRole="degrees" />
+    <NavigationProperty Name="employees" Relationship="Self.fk_employeedegrees_1" FromRole="employee_degrees" ToRole="employees" />
+  </EntityType>
+  <EntityType Name="employee_positions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="emp_bsn" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="employees" Relationship="Self.fk_employeepositions_0" FromRole="employee_positions" ToRole="employees" />
+    <NavigationProperty Name="positions" Relationship="Self.fk_employeepositions_1" FromRole="employee_positions" ToRole="positions" />
+  </EntityType>
+  <EntityType Name="employees">
+    <Key>
+      <PropertyRef Name="bsn" />
+    </Key>
+    <Property Name="bsn" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="postal_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="employee_adresses" Relationship="Self.fk_employeeadresses_0" FromRole="employees" ToRole="employee_adresses" />
+    <NavigationProperty Name="employee_degrees" Relationship="Self.fk_employeedegrees_1" FromRole="employees" ToRole="employee_degrees" />
+    <NavigationProperty Name="employee_positions" Relationship="Self.fk_employeepositions_0" FromRole="employees" ToRole="employee_positions" />
+    <NavigationProperty Name="works_for" Relationship="Self.fk_worksfor_0" FromRole="employees" ToRole="works_for" />
+  </EntityType>
+  <EntityType Name="headquarter_addresses">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="hq_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="addr_postal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="addr_country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="addresses" Relationship="Self.fk_headquarteraddresses_1" FromRole="headquarter_addresses" ToRole="addresses" />
+    <NavigationProperty Name="headquarters" Relationship="Self.fk_headquarteraddresses_0" FromRole="headquarter_addresses" ToRole="headquarters" />
+  </EntityType>
+  <EntityType Name="headquarters">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="rooms" Type="Int32" />
+    <Property Name="rent" Type="Decimal" Precision="10" Scale="0" />
+    <NavigationProperty Name="headquarter_addresses" Relationship="Self.fk_headquarteraddresses_0" FromRole="headquarters" ToRole="headquarter_addresses" />
+    <NavigationProperty Name="located_at" Relationship="Self.fk_locatedat_1" FromRole="headquarters" ToRole="located_at" />
+    <NavigationProperty Name="works_for" Relationship="Self.fk_worksfor_1" FromRole="headquarters" ToRole="works_for" />
+  </EntityType>
+  <EntityType Name="located_at">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="project_id" Type="Int32" />
+    <Property Name="hq_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="headquarters" Relationship="Self.fk_locatedat_1" FromRole="located_at" ToRole="headquarters" />
+    <NavigationProperty Name="projects" Relationship="Self.fk_locatedat_0" FromRole="located_at" ToRole="projects" />
+  </EntityType>
+  <EntityType Name="positions">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="fee" Type="Decimal" Precision="10" Scale="0" />
+    <NavigationProperty Name="assigned" Relationship="Self.fk_projectpositions_1" FromRole="positions" ToRole="assigned" />
+    <NavigationProperty Name="employee_positions" Relationship="Self.fk_employeepositions_1" FromRole="positions" ToRole="employee_positions" />
+  </EntityType>
+  <EntityType Name="projects">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="budget" Type="Decimal" Precision="10" Scale="0" />
+    <Property Name="total_hours" Type="Int32" />
+    <NavigationProperty Name="assigned" Relationship="Self.fk_projectpositions_0" FromRole="projects" ToRole="assigned" />
+    <NavigationProperty Name="located_at" Relationship="Self.fk_locatedat_0" FromRole="projects" ToRole="located_at" />
+  </EntityType>
+  <EntityType Name="works_for">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="emp_bsn" Type="Int32" />
+    <Property Name="hq_name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="employees" Relationship="Self.fk_worksfor_0" FromRole="works_for" ToRole="employees" />
+    <NavigationProperty Name="headquarters" Relationship="Self.fk_worksfor_1" FromRole="works_for" ToRole="headquarters" />
+  </EntityType>
+  <Association Name="fk_employeeadresses_1">
+    <End Role="addresses" Type="Self.addresses" Multiplicity="1" />
+    <End Role="employee_adresses" Type="Self.employee_adresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="addresses">
+        <PropertyRef Name="postal_code" />
+        <PropertyRef Name="country" />
+      </Principal>
+      <Dependent Role="employee_adresses">
+        <PropertyRef Name="addr_postal" />
+        <PropertyRef Name="addr_country" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_headquarteraddresses_1">
+    <End Role="addresses" Type="Self.addresses" Multiplicity="0..1" />
+    <End Role="headquarter_addresses" Type="Self.headquarter_addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="addresses">
+        <PropertyRef Name="postal_code" />
+        <PropertyRef Name="country" />
+      </Principal>
+      <Dependent Role="headquarter_addresses">
+        <PropertyRef Name="addr_postal" />
+        <PropertyRef Name="addr_country" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_projectpositions_0">
+    <End Role="projects" Type="Self.projects" Multiplicity="0..1" />
+    <End Role="assigned" Type="Self.assigned" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="assigned">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_projectpositions_1">
+    <End Role="positions" Type="Self.positions" Multiplicity="0..1" />
+    <End Role="assigned" Type="Self.assigned" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="positions">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="assigned">
+        <PropertyRef Name="position_name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_employeedegrees_0">
+    <End Role="degrees" Type="Self.degrees" Multiplicity="0..1" />
+    <End Role="employee_degrees" Type="Self.employee_degrees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="degrees">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="employee_degrees">
+        <PropertyRef Name="degree_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_employeeadresses_0">
+    <End Role="employees" Type="Self.employees" Multiplicity="1" />
+    <End Role="employee_adresses" Type="Self.employee_adresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="bsn" />
+      </Principal>
+      <Dependent Role="employee_adresses">
+        <PropertyRef Name="emp_bsn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_employeedegrees_1">
+    <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+    <End Role="employee_degrees" Type="Self.employee_degrees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="bsn" />
+      </Principal>
+      <Dependent Role="employee_degrees">
+        <PropertyRef Name="emp_bsn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_employeepositions_0">
+    <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+    <End Role="employee_positions" Type="Self.employee_positions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="bsn" />
+      </Principal>
+      <Dependent Role="employee_positions">
+        <PropertyRef Name="emp_bsn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_employeepositions_1">
+    <End Role="positions" Type="Self.positions" Multiplicity="0..1" />
+    <End Role="employee_positions" Type="Self.employee_positions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="positions">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="employee_positions">
+        <PropertyRef Name="name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_worksfor_0">
+    <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+    <End Role="works_for" Type="Self.works_for" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="bsn" />
+      </Principal>
+      <Dependent Role="works_for">
+        <PropertyRef Name="emp_bsn" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_headquarteraddresses_0">
+    <End Role="headquarters" Type="Self.headquarters" Multiplicity="0..1" />
+    <End Role="headquarter_addresses" Type="Self.headquarter_addresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="headquarters">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="headquarter_addresses">
+        <PropertyRef Name="hq_name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_locatedat_1">
+    <End Role="headquarters" Type="Self.headquarters" Multiplicity="0..1" />
+    <End Role="located_at" Type="Self.located_at" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="headquarters">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="located_at">
+        <PropertyRef Name="hq_name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_worksfor_1">
+    <End Role="headquarters" Type="Self.headquarters" Multiplicity="0..1" />
+    <End Role="works_for" Type="Self.works_for" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="headquarters">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="works_for">
+        <PropertyRef Name="hq_name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_locatedat_0">
+    <End Role="projects" Type="Self.projects" Multiplicity="0..1" />
+    <End Role="located_at" Type="Self.located_at" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projects">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="located_at">
+        <PropertyRef Name="project_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DevEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="addresses" EntityType="Self.addresses" />
+    <EntitySet Name="assigned" EntityType="Self.assigned" />
+    <EntitySet Name="degrees" EntityType="Self.degrees" />
+    <EntitySet Name="employee_adresses" EntityType="Self.employee_adresses" />
+    <EntitySet Name="employee_degrees" EntityType="Self.employee_degrees" />
+    <EntitySet Name="employee_positions" EntityType="Self.employee_positions" />
+    <EntitySet Name="employees" EntityType="Self.employees" />
+    <EntitySet Name="headquarter_addresses" EntityType="Self.headquarter_addresses" />
+    <EntitySet Name="headquarters" EntityType="Self.headquarters" />
+    <EntitySet Name="located_at" EntityType="Self.located_at" />
+    <EntitySet Name="positions" EntityType="Self.positions" />
+    <EntitySet Name="projects" EntityType="Self.projects" />
+    <EntitySet Name="works_for" EntityType="Self.works_for" />
+    <AssociationSet Name="fk_employeeadresses_1" Association="Self.fk_employeeadresses_1">
+      <End Role="addresses" EntitySet="addresses" />
+      <End Role="employee_adresses" EntitySet="employee_adresses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_headquarteraddresses_1" Association="Self.fk_headquarteraddresses_1">
+      <End Role="addresses" EntitySet="addresses" />
+      <End Role="headquarter_addresses" EntitySet="headquarter_addresses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_projectpositions_0" Association="Self.fk_projectpositions_0">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="assigned" EntitySet="assigned" />
+    </AssociationSet>
+    <AssociationSet Name="fk_projectpositions_1" Association="Self.fk_projectpositions_1">
+      <End Role="positions" EntitySet="positions" />
+      <End Role="assigned" EntitySet="assigned" />
+    </AssociationSet>
+    <AssociationSet Name="fk_employeedegrees_0" Association="Self.fk_employeedegrees_0">
+      <End Role="degrees" EntitySet="degrees" />
+      <End Role="employee_degrees" EntitySet="employee_degrees" />
+    </AssociationSet>
+    <AssociationSet Name="fk_employeeadresses_0" Association="Self.fk_employeeadresses_0">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="employee_adresses" EntitySet="employee_adresses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_employeedegrees_1" Association="Self.fk_employeedegrees_1">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="employee_degrees" EntitySet="employee_degrees" />
+    </AssociationSet>
+    <AssociationSet Name="fk_employeepositions_0" Association="Self.fk_employeepositions_0">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="employee_positions" EntitySet="employee_positions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_employeepositions_1" Association="Self.fk_employeepositions_1">
+      <End Role="positions" EntitySet="positions" />
+      <End Role="employee_positions" EntitySet="employee_positions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_worksfor_0" Association="Self.fk_worksfor_0">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="works_for" EntitySet="works_for" />
+    </AssociationSet>
+    <AssociationSet Name="fk_headquarteraddresses_0" Association="Self.fk_headquarteraddresses_0">
+      <End Role="headquarters" EntitySet="headquarters" />
+      <End Role="headquarter_addresses" EntitySet="headquarter_addresses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_locatedat_1" Association="Self.fk_locatedat_1">
+      <End Role="headquarters" EntitySet="headquarters" />
+      <End Role="located_at" EntitySet="located_at" />
+    </AssociationSet>
+    <AssociationSet Name="fk_worksfor_1" Association="Self.fk_worksfor_1">
+      <End Role="headquarters" EntitySet="headquarters" />
+      <End Role="works_for" EntitySet="works_for" />
+    </AssociationSet>
+    <AssociationSet Name="fk_locatedat_0" Association="Self.fk_locatedat_0">
+      <End Role="projects" EntitySet="projects" />
+      <End Role="located_at" EntitySet="located_at" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

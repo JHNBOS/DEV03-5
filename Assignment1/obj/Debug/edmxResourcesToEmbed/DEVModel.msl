@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DEVModelStoreContainer" CdmEntityContainer="DevEntities">
+    <EntitySetMapping Name="addresses">
+      <EntityTypeMapping TypeName="DEVModel.addresses">
+        <MappingFragment StoreEntitySet="addresses">
+          <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="street" ColumnName="street" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="city" ColumnName="city" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="assigned">
+      <EntityTypeMapping TypeName="DEVModel.assigned">
+        <MappingFragment StoreEntitySet="assigned">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="position_name" ColumnName="position_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="degrees">
+      <EntityTypeMapping TypeName="DEVModel.degrees">
+        <MappingFragment StoreEntitySet="degrees">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="course" ColumnName="course" />
+          <ScalarProperty Name="school" ColumnName="school" />
+          <ScalarProperty Name="level" ColumnName="level" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employee_adresses">
+      <EntityTypeMapping TypeName="DEVModel.employee_adresses">
+        <MappingFragment StoreEntitySet="employee_adresses">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="emp_bsn" ColumnName="emp_bsn" />
+          <ScalarProperty Name="addr_postal" ColumnName="addr_postal" />
+          <ScalarProperty Name="addr_country" ColumnName="addr_country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employee_degrees">
+      <EntityTypeMapping TypeName="DEVModel.employee_degrees">
+        <MappingFragment StoreEntitySet="employee_degrees">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="degree_id" ColumnName="degree_id" />
+          <ScalarProperty Name="emp_bsn" ColumnName="emp_bsn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employee_positions">
+      <EntityTypeMapping TypeName="DEVModel.employee_positions">
+        <MappingFragment StoreEntitySet="employee_positions">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="emp_bsn" ColumnName="emp_bsn" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="DEVModel.employees">
+        <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="bsn" ColumnName="bsn" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="headquarter_addresses">
+      <EntityTypeMapping TypeName="DEVModel.headquarter_addresses">
+        <MappingFragment StoreEntitySet="headquarter_addresses">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="hq_name" ColumnName="hq_name" />
+          <ScalarProperty Name="addr_postal" ColumnName="addr_postal" />
+          <ScalarProperty Name="addr_country" ColumnName="addr_country" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="headquarters">
+      <EntityTypeMapping TypeName="DEVModel.headquarters">
+        <MappingFragment StoreEntitySet="headquarters">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="rooms" ColumnName="rooms" />
+          <ScalarProperty Name="rent" ColumnName="rent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="located_at">
+      <EntityTypeMapping TypeName="DEVModel.located_at">
+        <MappingFragment StoreEntitySet="located_at">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="project_id" ColumnName="project_id" />
+          <ScalarProperty Name="hq_name" ColumnName="hq_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="positions">
+      <EntityTypeMapping TypeName="DEVModel.positions">
+        <MappingFragment StoreEntitySet="positions">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="fee" ColumnName="fee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projects">
+      <EntityTypeMapping TypeName="DEVModel.projects">
+        <MappingFragment StoreEntitySet="projects">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="budget" ColumnName="budget" />
+          <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="works_for">
+      <EntityTypeMapping TypeName="DEVModel.works_for">
+        <MappingFragment StoreEntitySet="works_for">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="emp_bsn" ColumnName="emp_bsn" />
+          <ScalarProperty Name="hq_name" ColumnName="hq_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
