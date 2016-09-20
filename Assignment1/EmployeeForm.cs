@@ -28,6 +28,11 @@ namespace Assignment1
             RemoveDegreeButton.Enabled = false;
             addJobButton.Enabled = false;
             removeJobbutton.Enabled = false;
+            addAddressButton.Enabled = false;
+            removeAddressButton.Enabled = false;
+            AssignProjectButton.Enabled = false;
+            RemoveAssignButton.Enabled = false;
+            UpdateButton.Enabled = false;
 
             //Execute methods
             FillComboBox();
@@ -208,17 +213,9 @@ namespace Assignment1
                 string city = addresses.city;
                 string country = addresses.country;
 
-                string address = street + " " + number + ", " + postal + " " + city + ", " + country + Environment.NewLine;
+                string address = street + " " + number + "," + " " + postal + " " + city + "," + " " + country;
 
-                if (addressBox.TextLength == 0)
-                {
-                    addressBox.Text = address;
-                }
-                else
-                {
-                    addressBox.Text += address;
-                }
-
+                addressListBox.Items.Add(address);
             }
         }
 
@@ -267,28 +264,31 @@ namespace Assignment1
             AddButton.Enabled = true;
             SelectButton.Enabled = true;
             EditButton.Enabled = true;
-            UpdateButton.Enabled = true;
+            UpdateButton.Enabled = false;
             DeleteButton.Enabled = true;
             AddDegreeButton.Enabled = false;
             RemoveDegreeButton.Enabled = false;
             addJobButton.Enabled = false;
             removeJobbutton.Enabled = false;
+            addAddressButton.Enabled = false;
+            removeAddressButton.Enabled = false;
+            AssignProjectButton.Enabled = false;
+            RemoveAssignButton.Enabled = false;
 
             //Readonly to false;
             bsnBox.ReadOnly = false;
             fnameBox.ReadOnly = false;
             surnameBox.ReadOnly = false;
-            addressBox.ReadOnly = false;
             residenceBox.ReadOnly = false;
 
             //Clear fields
             bsnBox.Clear();
             fnameBox.Clear();
             surnameBox.Clear();
-            addressBox.Clear();
             residenceBox.Clear();
             jobListBox.Items.Clear();
             degreeListBox.Items.Clear();
+            addressListBox.Items.Clear();
         }
 
 
@@ -306,12 +306,15 @@ namespace Assignment1
             RemoveDegreeButton.Enabled = false;
             addJobButton.Enabled = false;
             removeJobbutton.Enabled = false;
+            addAddressButton.Enabled = false;
+            removeAddressButton.Enabled = false;
+            AssignProjectButton.Enabled = false;
+            RemoveAssignButton.Enabled = false;
 
             //Readonly to false;
             bsnBox.ReadOnly = true;
             fnameBox.ReadOnly = true;
             surnameBox.ReadOnly = true;
-            addressBox.ReadOnly = true;
             residenceBox.ReadOnly = true;
         }
 
@@ -324,17 +327,6 @@ namespace Assignment1
         //Method to add new employee
         private void AddButton_Click(object sender, EventArgs e)
         {
-            //Full address
-            string fullAddress = addressBox.ToString();
-            string[] tmp = fullAddress.Split(new char[] {' ', ',', '\n'}, StringSplitOptions.RemoveEmptyEntries);
-
-            //Address info
-            string street = tmp[2];
-            string number = tmp[3];
-            string postal = tmp[4];
-            string city = tmp[5];
-            string country = tmp[6];
-
             //Employee info
             string firstName = fnameBox.Text;
             string surName = surnameBox.Text;
@@ -351,24 +343,6 @@ namespace Assignment1
                 employee.postal_code = residence;
 
                 data.employees.Add(employee);
-                data.SaveChanges();
-
-                addresses address = new addresses();
-                address.street = street;
-                address.number = number;
-                address.postal_code = postal;
-                address.city = city;
-                address.country = country;
-
-                data.addresses.Add(address);
-                data.SaveChanges();
-
-                employee_addresses ea = new employee_addresses();
-                ea.emp_bsn = bsn;
-                ea.addr_postal = postal;
-                ea.addr_country = country;
-
-                data.employee_addresses.Add(ea);
                 data.SaveChanges();
 
                 MessageBox.Show("New employee added!");
@@ -405,12 +379,15 @@ namespace Assignment1
             RemoveDegreeButton.Enabled = true;
             addJobButton.Enabled = true;
             removeJobbutton.Enabled = true;
+            addAddressButton.Enabled = true;
+            removeAddressButton.Enabled = true;
+            AssignProjectButton.Enabled = true;
+            RemoveAssignButton.Enabled = true;
 
             //Readonly to false;
             bsnBox.ReadOnly = true;
             fnameBox.ReadOnly = false;
             surnameBox.ReadOnly = false;
-            addressBox.ReadOnly = false;
             residenceBox.ReadOnly = false;
         }
 
@@ -498,6 +475,7 @@ namespace Assignment1
 
             EmployeeComboBox.Items.Clear();
             EmployeeComboBox.ResetText();
+            ClearAll();
             FillComboBox();
         }
 
@@ -731,6 +709,84 @@ namespace Assignment1
             projectListBox.Items.Clear();
             projectListBox.ResetText();
             GetProjects(selectedEmployee.bsn);
+        }
+
+        private void addAddressButton_Click(object sender, EventArgs e)
+        {
+            //Get selected employee to delete
+            //Get first and last name and split in two variables
+            string fullName = EmployeeComboBox.SelectedItem.ToString();
+            string[] tmp = fullName.Split(',');
+            string firstName = tmp[1];
+            string lastName = tmp[0];
+
+            employees selectedEmployee = null;
+
+            try
+            {
+                selectedEmployee = data.employees.Where(emp => emp.name == firstName && emp.surname == lastName).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            AddAddressForm ad = new AddAddressForm(selectedEmployee.bsn);
+            ad.Show();
+            this.Hide();
+        }
+
+        private void removeAddressButton_Click(object sender, EventArgs e)
+        {
+            //Get selected item
+            string address = addressListBox.SelectedItem.ToString();
+            string[] tmp = address.Split(new[] {',',' '}, StringSplitOptions.RemoveEmptyEntries);
+            string street = tmp[0];
+            string number = tmp[1];
+            string postal = tmp[2];
+            string city = tmp[3];
+            string country = tmp[4];
+
+            Console.WriteLine("Street: " + street);
+            Console.WriteLine("Number: " + number);
+            Console.WriteLine("Postal: " + postal);
+            Console.WriteLine("City: " + city);
+            Console.WriteLine("Country: " + country);
+
+            //Get first and last name and split in two variables
+            string fullName = EmployeeComboBox.SelectedItem.ToString();
+            string[] tmp1 = fullName.Split(',');
+            string firstName = tmp1[1];
+            string lastName = tmp1[0];
+
+            employees selectedEmployee = null;
+            addresses selectedAddress = null;
+
+            try
+            {
+                selectedAddress = data.addresses.Where(a => a.street == street && a.number == number
+                && a.postal_code == postal && a.city == city && a.country == country).FirstOrDefault();
+
+                selectedEmployee = data.employees.Where(emp => emp.name == firstName && emp.surname == lastName).FirstOrDefault();
+
+                employee_addresses deleteEmployeeAddresses = data.employee_addresses.Where(ea => ea.addr_country == selectedAddress.country
+                && ea.addr_postal == selectedAddress.postal_code && ea.emp_bsn == selectedEmployee.bsn).FirstOrDefault();
+
+                data.employee_addresses.Remove(deleteEmployeeAddresses);
+                data.addresses.Remove(selectedAddress);
+                data.SaveChanges();
+
+                MessageBox.Show("Address removed!");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problem with removing address!");
+                Console.WriteLine(ex);
+            }
+
+            addressListBox.Items.Clear();
+            GetAddress(selectedEmployee.bsn);
         }
 
         /* END OF BUTTON HANDLERS */

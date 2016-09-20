@@ -20,6 +20,8 @@ namespace Assignment1
 
             this.FormClosing += PositionsForm_FormClosing;
 
+            UpdateButton.Enabled = false;
+
             //Execute methods
             FillComboBox();
         }

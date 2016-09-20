@@ -72,9 +72,9 @@
             this.createdbylable.AutoSize = true;
             this.createdbylable.Location = new System.Drawing.Point(171, 356);
             this.createdbylable.Name = "createdbylable";
-            this.createdbylable.Size = new System.Drawing.Size(117, 13);
+            this.createdbylable.Size = new System.Drawing.Size(111, 13);
             this.createdbylable.TabIndex = 3;
-            this.createdbylable.Text = "Created by - Johan Bos";
+            this.createdbylable.Text = "Created by Johan Bos";
             // 
             // HQButton
             // 

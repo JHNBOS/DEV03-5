@@ -20,6 +20,8 @@ namespace Assignment1
 
             this.FormClosing += HeadQuarterForm_FormClosing;
 
+            UpdateButton.Enabled = false;
+
             //Methods to execute
             FillComboBox();
         }
@@ -123,6 +125,7 @@ namespace Assignment1
             //Re-enable buttons
             AddButton.Enabled = true;
             SelectButton.Enabled = true;
+            DeleteButton.Enabled = true;
             EditButton.Enabled = true;
             UpdateButton.Enabled = true;
 
@@ -156,6 +159,8 @@ namespace Assignment1
             AddButton.Enabled = false;
             SelectButton.Enabled = false;
             UpdateButton.Enabled = false;
+            DeleteButton.Enabled = false;
+
 
             //Readonly to false;
             bnameBox.ReadOnly = true;
@@ -177,6 +182,7 @@ namespace Assignment1
             AddButton.Enabled = false;
             SelectButton.Enabled = false;
             UpdateButton.Enabled = true;
+            DeleteButton.Enabled = false;
 
             //Readonly to false;
             bnameBox.ReadOnly = true;

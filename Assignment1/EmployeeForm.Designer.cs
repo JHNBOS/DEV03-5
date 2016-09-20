@@ -38,9 +38,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.bsnBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.addressBox = new System.Windows.Forms.TextBox();
             this.AddButton = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.UpdateButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.residenceBox = new System.Windows.Forms.TextBox();
@@ -63,6 +61,9 @@
             this.projectListBox = new System.Windows.Forms.ListBox();
             this.RemoveAssignButton = new System.Windows.Forms.Button();
             this.AssignProjectButton = new System.Windows.Forms.Button();
+            this.removeAddressButton = new System.Windows.Forms.Button();
+            this.addAddressButton = new System.Windows.Forms.Button();
+            this.addressListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // EmployeeComboBox
@@ -96,7 +97,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(51, 227);
+            this.label3.Location = new System.Drawing.Point(23, 226);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 4;
@@ -104,7 +105,7 @@
             // 
             // fnameBox
             // 
-            this.fnameBox.Location = new System.Drawing.Point(54, 243);
+            this.fnameBox.Location = new System.Drawing.Point(26, 242);
             this.fnameBox.Name = "fnameBox";
             this.fnameBox.Size = new System.Drawing.Size(142, 20);
             this.fnameBox.TabIndex = 5;
@@ -112,7 +113,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(54, 299);
+            this.label4.Location = new System.Drawing.Point(26, 298);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 6;
@@ -120,7 +121,7 @@
             // 
             // surnameBox
             // 
-            this.surnameBox.Location = new System.Drawing.Point(57, 315);
+            this.surnameBox.Location = new System.Drawing.Point(29, 314);
             this.surnameBox.Name = "surnameBox";
             this.surnameBox.Size = new System.Drawing.Size(142, 20);
             this.surnameBox.TabIndex = 7;
@@ -128,7 +129,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(51, 152);
+            this.label5.Location = new System.Drawing.Point(23, 151);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 8;
@@ -136,7 +137,7 @@
             // 
             // bsnBox
             // 
-            this.bsnBox.Location = new System.Drawing.Point(54, 168);
+            this.bsnBox.Location = new System.Drawing.Point(26, 167);
             this.bsnBox.Name = "bsnBox";
             this.bsnBox.Size = new System.Drawing.Size(142, 20);
             this.bsnBox.TabIndex = 9;
@@ -144,25 +145,15 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(235, 139);
+            this.label6.Location = new System.Drawing.Point(207, 151);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Addresses";
             // 
-            // addressBox
-            // 
-            this.addressBox.AcceptsReturn = true;
-            this.addressBox.Location = new System.Drawing.Point(238, 168);
-            this.addressBox.Multiline = true;
-            this.addressBox.Name = "addressBox";
-            this.addressBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.addressBox.Size = new System.Drawing.Size(298, 96);
-            this.addressBox.TabIndex = 13;
-            // 
             // AddButton
             // 
-            this.AddButton.Location = new System.Drawing.Point(322, 472);
+            this.AddButton.Location = new System.Drawing.Point(279, 472);
             this.AddButton.Name = "AddButton";
             this.AddButton.Size = new System.Drawing.Size(129, 23);
             this.AddButton.TabIndex = 14;
@@ -170,19 +161,9 @@
             this.AddButton.UseVisualStyleBackColor = true;
             this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(235, 152);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(254, 13);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Ex:Beukenlaan 12A,1234AB Rotterdam,Netherlands";
-            // 
             // UpdateButton
             // 
-            this.UpdateButton.Location = new System.Drawing.Point(457, 472);
+            this.UpdateButton.Location = new System.Drawing.Point(433, 472);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(129, 23);
             this.UpdateButton.TabIndex = 17;
@@ -193,7 +174,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(54, 373);
+            this.label8.Location = new System.Drawing.Point(26, 372);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(118, 13);
             this.label8.TabIndex = 18;
@@ -201,7 +182,7 @@
             // 
             // residenceBox
             // 
-            this.residenceBox.Location = new System.Drawing.Point(54, 390);
+            this.residenceBox.Location = new System.Drawing.Point(26, 389);
             this.residenceBox.Name = "residenceBox";
             this.residenceBox.Size = new System.Drawing.Size(142, 20);
             this.residenceBox.TabIndex = 19;
@@ -209,7 +190,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(235, 299);
+            this.label9.Location = new System.Drawing.Point(207, 298);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(75, 13);
             this.label9.TabIndex = 20;
@@ -258,7 +239,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(564, 152);
+            this.label10.Location = new System.Drawing.Point(536, 151);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 51;
@@ -269,22 +250,22 @@
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label11.Location = new System.Drawing.Point(23, 121);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(846, 2);
+            this.label11.Size = new System.Drawing.Size(780, 2);
             this.label11.TabIndex = 64;
             // 
             // label12
             // 
             this.label12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label12.Location = new System.Drawing.Point(23, 467);
+            this.label12.Location = new System.Drawing.Point(23, 466);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(846, 2);
+            this.label12.Size = new System.Drawing.Size(780, 2);
             this.label12.TabIndex = 65;
             // 
             // degreeListBox
             // 
             this.degreeListBox.FormattingEnabled = true;
             this.degreeListBox.HorizontalScrollbar = true;
-            this.degreeListBox.Location = new System.Drawing.Point(567, 168);
+            this.degreeListBox.Location = new System.Drawing.Point(539, 167);
             this.degreeListBox.Name = "degreeListBox";
             this.degreeListBox.ScrollAlwaysVisible = true;
             this.degreeListBox.Size = new System.Drawing.Size(249, 95);
@@ -294,7 +275,7 @@
             // AddDegreeButton
             // 
             this.AddDegreeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddDegreeButton.Location = new System.Drawing.Point(676, 269);
+            this.AddDegreeButton.Location = new System.Drawing.Point(648, 268);
             this.AddDegreeButton.Name = "AddDegreeButton";
             this.AddDegreeButton.Size = new System.Drawing.Size(67, 23);
             this.AddDegreeButton.TabIndex = 67;
@@ -304,7 +285,7 @@
             // 
             // RemoveDegreeButton
             // 
-            this.RemoveDegreeButton.Location = new System.Drawing.Point(749, 269);
+            this.RemoveDegreeButton.Location = new System.Drawing.Point(721, 268);
             this.RemoveDegreeButton.Name = "RemoveDegreeButton";
             this.RemoveDegreeButton.Size = new System.Drawing.Size(67, 23);
             this.RemoveDegreeButton.TabIndex = 68;
@@ -314,7 +295,7 @@
             // 
             // removeJobbutton
             // 
-            this.removeJobbutton.Location = new System.Drawing.Point(466, 416);
+            this.removeJobbutton.Location = new System.Drawing.Point(438, 415);
             this.removeJobbutton.Name = "removeJobbutton";
             this.removeJobbutton.Size = new System.Drawing.Size(67, 23);
             this.removeJobbutton.TabIndex = 70;
@@ -325,7 +306,7 @@
             // addJobButton
             // 
             this.addJobButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addJobButton.Location = new System.Drawing.Point(393, 416);
+            this.addJobButton.Location = new System.Drawing.Point(365, 415);
             this.addJobButton.Name = "addJobButton";
             this.addJobButton.Size = new System.Drawing.Size(67, 23);
             this.addJobButton.TabIndex = 69;
@@ -337,7 +318,7 @@
             // 
             this.jobListBox.FormattingEnabled = true;
             this.jobListBox.HorizontalScrollbar = true;
-            this.jobListBox.Location = new System.Drawing.Point(238, 315);
+            this.jobListBox.Location = new System.Drawing.Point(210, 314);
             this.jobListBox.Name = "jobListBox";
             this.jobListBox.ScrollAlwaysVisible = true;
             this.jobListBox.Size = new System.Drawing.Size(295, 95);
@@ -347,7 +328,7 @@
             // label13
             // 
             this.label13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label13.Location = new System.Drawing.Point(219, 137);
+            this.label13.Location = new System.Drawing.Point(191, 136);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(2, 330);
             this.label13.TabIndex = 72;
@@ -355,7 +336,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(567, 298);
+            this.label14.Location = new System.Drawing.Point(539, 297);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(45, 13);
             this.label14.TabIndex = 73;
@@ -364,15 +345,17 @@
             // projectListBox
             // 
             this.projectListBox.FormattingEnabled = true;
-            this.projectListBox.Location = new System.Drawing.Point(567, 315);
+            this.projectListBox.HorizontalScrollbar = true;
+            this.projectListBox.Location = new System.Drawing.Point(539, 314);
             this.projectListBox.Name = "projectListBox";
             this.projectListBox.ScrollAlwaysVisible = true;
             this.projectListBox.Size = new System.Drawing.Size(249, 95);
+            this.projectListBox.Sorted = true;
             this.projectListBox.TabIndex = 74;
             // 
             // RemoveAssignButton
             // 
-            this.RemoveAssignButton.Location = new System.Drawing.Point(749, 416);
+            this.RemoveAssignButton.Location = new System.Drawing.Point(721, 415);
             this.RemoveAssignButton.Name = "RemoveAssignButton";
             this.RemoveAssignButton.Size = new System.Drawing.Size(67, 23);
             this.RemoveAssignButton.TabIndex = 76;
@@ -383,7 +366,7 @@
             // AssignProjectButton
             // 
             this.AssignProjectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AssignProjectButton.Location = new System.Drawing.Point(676, 416);
+            this.AssignProjectButton.Location = new System.Drawing.Point(648, 415);
             this.AssignProjectButton.Name = "AssignProjectButton";
             this.AssignProjectButton.Size = new System.Drawing.Size(67, 23);
             this.AssignProjectButton.TabIndex = 75;
@@ -391,11 +374,47 @@
             this.AssignProjectButton.UseVisualStyleBackColor = true;
             this.AssignProjectButton.Click += new System.EventHandler(this.AssignProjectButton_Click);
             // 
+            // removeAddressButton
+            // 
+            this.removeAddressButton.Location = new System.Drawing.Point(441, 268);
+            this.removeAddressButton.Name = "removeAddressButton";
+            this.removeAddressButton.Size = new System.Drawing.Size(67, 23);
+            this.removeAddressButton.TabIndex = 78;
+            this.removeAddressButton.Text = "Remove";
+            this.removeAddressButton.UseVisualStyleBackColor = true;
+            this.removeAddressButton.Click += new System.EventHandler(this.removeAddressButton_Click);
+            // 
+            // addAddressButton
+            // 
+            this.addAddressButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addAddressButton.Location = new System.Drawing.Point(368, 268);
+            this.addAddressButton.Name = "addAddressButton";
+            this.addAddressButton.Size = new System.Drawing.Size(67, 23);
+            this.addAddressButton.TabIndex = 77;
+            this.addAddressButton.Text = "Add";
+            this.addAddressButton.UseVisualStyleBackColor = true;
+            this.addAddressButton.Click += new System.EventHandler(this.addAddressButton_Click);
+            // 
+            // addressListBox
+            // 
+            this.addressListBox.FormattingEnabled = true;
+            this.addressListBox.HorizontalScrollbar = true;
+            this.addressListBox.Location = new System.Drawing.Point(210, 167);
+            this.addressListBox.Name = "addressListBox";
+            this.addressListBox.ScrollAlwaysVisible = true;
+            this.addressListBox.Size = new System.Drawing.Size(298, 95);
+            this.addressListBox.Sorted = true;
+            this.addressListBox.TabIndex = 79;
+            // 
             // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(895, 507);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(824, 507);
+            this.Controls.Add(this.addressListBox);
+            this.Controls.Add(this.removeAddressButton);
+            this.Controls.Add(this.addAddressButton);
             this.Controls.Add(this.RemoveAssignButton);
             this.Controls.Add(this.AssignProjectButton);
             this.Controls.Add(this.projectListBox);
@@ -418,9 +437,7 @@
             this.Controls.Add(this.residenceBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.UpdateButton);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.addressBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.bsnBox);
             this.Controls.Add(this.label5);
@@ -451,9 +468,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox bsnBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox addressBox;
         private System.Windows.Forms.Button AddButton;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox residenceBox;
@@ -476,5 +491,8 @@
         private System.Windows.Forms.ListBox projectListBox;
         private System.Windows.Forms.Button RemoveAssignButton;
         private System.Windows.Forms.Button AssignProjectButton;
+        private System.Windows.Forms.Button removeAddressButton;
+        private System.Windows.Forms.Button addAddressButton;
+        private System.Windows.Forms.ListBox addressListBox;
     }
 }

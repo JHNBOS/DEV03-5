@@ -22,6 +22,7 @@ namespace Assignment1
 
             AddPositionButton.Enabled = false;
             RemovePositionButton.Enabled = false;
+            UpdateButton.Enabled = false;
 
             //Execute methods
             FillComboBox();
