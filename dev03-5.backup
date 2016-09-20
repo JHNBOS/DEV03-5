@@ -1,0 +1,826 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.4
+-- Dumped by pg_dump version 9.4.0
+-- Started on 2016-09-20 14:23:10
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+DROP DATABASE "DEV0351";
+--
+-- TOC entry 2127 (class 1262 OID 215326)
+-- Name: DEV0351; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "DEV0351" WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Dutch_Netherlands.1252' LC_CTYPE = 'Dutch_Netherlands.1252';
+
+
+ALTER DATABASE "DEV0351" OWNER TO postgres;
+
+\connect "DEV0351"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 5 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 2128 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
+-- TOC entry 193 (class 3079 OID 11855)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2130 (class 0 OID 0)
+-- Dependencies: 193
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 180 (class 1259 OID 215665)
+-- Name: addresses; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE addresses (
+    postal_code character varying(10) NOT NULL,
+    country character varying(30) NOT NULL,
+    street character varying(25),
+    number character varying(4),
+    city character varying(25)
+);
+
+
+ALTER TABLE addresses OWNER TO postgres;
+
+--
+-- TOC entry 190 (class 1259 OID 215773)
+-- Name: assigned_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE assigned_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE assigned_increment OWNER TO postgres;
+
+--
+-- TOC entry 178 (class 1259 OID 215655)
+-- Name: assigned; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE assigned (
+    id integer DEFAULT nextval('assigned_increment'::regclass) NOT NULL,
+    position_name character varying(25),
+    project_id text
+);
+
+
+ALTER TABLE assigned OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1259 OID 215778)
+-- Name: degrees_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE degrees_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE degrees_increment OWNER TO postgres;
+
+--
+-- TOC entry 172 (class 1259 OID 215625)
+-- Name: degrees; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE degrees (
+    id integer DEFAULT nextval('degrees_increment'::regclass) NOT NULL,
+    course character varying(30),
+    school character varying(30),
+    level character varying(20)
+);
+
+
+ALTER TABLE degrees OWNER TO postgres;
+
+--
+-- TOC entry 184 (class 1259 OID 215760)
+-- Name: employee_addresses_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE employee_addresses_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE employee_addresses_increment OWNER TO postgres;
+
+--
+-- TOC entry 181 (class 1259 OID 215670)
+-- Name: employee_addresses; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE employee_addresses (
+    id integer DEFAULT nextval('employee_addresses_increment'::regclass) NOT NULL,
+    addr_postal character varying(10) NOT NULL,
+    addr_country character varying(30) NOT NULL,
+    emp_bsn character varying(10)
+);
+
+
+ALTER TABLE employee_addresses OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 215762)
+-- Name: employee_degrees_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE employee_degrees_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE employee_degrees_increment OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 215635)
+-- Name: employee_degrees; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE employee_degrees (
+    id integer DEFAULT nextval('employee_degrees_increment'::regclass) NOT NULL,
+    degree_id integer,
+    emp_bsn character varying(10)
+);
+
+
+ALTER TABLE employee_degrees OWNER TO postgres;
+
+--
+-- TOC entry 186 (class 1259 OID 215764)
+-- Name: employee_positions_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE employee_positions_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE employee_positions_increment OWNER TO postgres;
+
+--
+-- TOC entry 182 (class 1259 OID 215675)
+-- Name: employee_positions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE employee_positions (
+    id integer DEFAULT nextval('employee_positions_increment'::regclass) NOT NULL,
+    name character varying(25),
+    emp_bsn character varying(10)
+);
+
+
+ALTER TABLE employee_positions OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 215630)
+-- Name: employees; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE employees (
+    name character varying(20),
+    surname character varying(20),
+    postal_code character varying(10),
+    bsn character varying(10) NOT NULL
+);
+
+
+ALTER TABLE employees OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 215766)
+-- Name: headquarter_addresses_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE headquarter_addresses_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE headquarter_addresses_increment OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 215680)
+-- Name: headquarter_addresses; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE headquarter_addresses (
+    id integer DEFAULT nextval('headquarter_addresses_increment'::regclass) NOT NULL,
+    hq_name character varying(25),
+    addr_postal character varying(10),
+    addr_country character varying(30)
+);
+
+
+ALTER TABLE headquarter_addresses OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 215640)
+-- Name: headquarters; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE headquarters (
+    name character varying(25) NOT NULL,
+    rooms integer,
+    rent numeric(10,2)
+);
+
+
+ALTER TABLE headquarters OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 215645)
+-- Name: positions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE positions (
+    name character varying(25) NOT NULL,
+    description character varying(150),
+    fee numeric(10,2)
+);
+
+
+ALTER TABLE positions OWNER TO postgres;
+
+--
+-- TOC entry 177 (class 1259 OID 215650)
+-- Name: projects; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE projects (
+    budget numeric(10,2),
+    total_hours integer,
+    headquarter text,
+    name text,
+    id text NOT NULL
+);
+
+
+ALTER TABLE projects OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 215771)
+-- Name: working_on_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE working_on_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE working_on_increment OWNER TO postgres;
+
+--
+-- TOC entry 192 (class 1259 OID 215885)
+-- Name: working_on; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE working_on (
+    id integer DEFAULT nextval('working_on_increment'::regclass) NOT NULL,
+    emp_bsn text,
+    project_id text
+);
+
+
+ALTER TABLE working_on OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 215768)
+-- Name: works_for_increment; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE works_for_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE works_for_increment OWNER TO postgres;
+
+--
+-- TOC entry 179 (class 1259 OID 215660)
+-- Name: works_for; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE works_for (
+    id integer DEFAULT nextval('works_for_increment'::regclass) NOT NULL,
+    hq_name character varying(25),
+    emp_bsn character varying(10)
+);
+
+
+ALTER TABLE works_for OWNER TO postgres;
+
+--
+-- TOC entry 2110 (class 0 OID 215665)
+-- Dependencies: 180
+-- Data for Name: addresses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO addresses (postal_code, country, street, number, city) VALUES ('3014PK', 'Netherlands', 'Gouvernestraat', '85B', 'Rotterdam');
+
+
+--
+-- TOC entry 2108 (class 0 OID 215655)
+-- Dependencies: 178
+-- Data for Name: assigned; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO assigned (id, position_name, project_id) VALUES (2, 'CEO', '1');
+
+
+--
+-- TOC entry 2131 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: assigned_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('assigned_increment', 2, true);
+
+
+--
+-- TOC entry 2102 (class 0 OID 215625)
+-- Dependencies: 172
+-- Data for Name: degrees; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO degrees (id, course, school, level) VALUES (2, 'Informatica', 'Hogeschool Rotterdam', 'Bachelor');
+
+
+--
+-- TOC entry 2132 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: degrees_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('degrees_increment', 2, true);
+
+
+--
+-- TOC entry 2111 (class 0 OID 215670)
+-- Dependencies: 181
+-- Data for Name: employee_addresses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO employee_addresses (id, addr_postal, addr_country, emp_bsn) VALUES (10, '3014PK', 'Netherlands', '98765');
+
+
+--
+-- TOC entry 2133 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: employee_addresses_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('employee_addresses_increment', 10, true);
+
+
+--
+-- TOC entry 2104 (class 0 OID 215635)
+-- Dependencies: 174
+-- Data for Name: employee_degrees; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO employee_degrees (id, degree_id, emp_bsn) VALUES (2, 2, '98765');
+
+
+--
+-- TOC entry 2134 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: employee_degrees_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('employee_degrees_increment', 2, true);
+
+
+--
+-- TOC entry 2112 (class 0 OID 215675)
+-- Dependencies: 182
+-- Data for Name: employee_positions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO employee_positions (id, name, emp_bsn) VALUES (3, 'CEO', '98765');
+
+
+--
+-- TOC entry 2135 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: employee_positions_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('employee_positions_increment', 3, true);
+
+
+--
+-- TOC entry 2103 (class 0 OID 215630)
+-- Dependencies: 173
+-- Data for Name: employees; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO employees (name, surname, postal_code, bsn) VALUES ('Johan', 'Bos', '3014PK', '98765');
+
+
+--
+-- TOC entry 2113 (class 0 OID 215680)
+-- Dependencies: 183
+-- Data for Name: headquarter_addresses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO headquarter_addresses (id, hq_name, addr_postal, addr_country) VALUES (2, 'H.O.M.E.', '3014PK', 'Netherlands');
+
+
+--
+-- TOC entry 2136 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: headquarter_addresses_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('headquarter_addresses_increment', 2, true);
+
+
+--
+-- TOC entry 2105 (class 0 OID 215640)
+-- Dependencies: 175
+-- Data for Name: headquarters; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO headquarters (name, rooms, rent) VALUES ('H.O.M.E.', 5, 700.00);
+
+
+--
+-- TOC entry 2106 (class 0 OID 215645)
+-- Dependencies: 176
+-- Data for Name: positions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO positions (name, description, fee) VALUES ('CEO', 'Being the boss and not having to work all day.', 400.00);
+
+
+--
+-- TOC entry 2107 (class 0 OID 215650)
+-- Dependencies: 177
+-- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO projects (budget, total_hours, headquarter, name, id) VALUES (500000.00, 8, 'H.O.M.E.', 'noSQL', '1');
+
+
+--
+-- TOC entry 2122 (class 0 OID 215885)
+-- Dependencies: 192
+-- Data for Name: working_on; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 2137 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: working_on_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('working_on_increment', 1, false);
+
+
+--
+-- TOC entry 2109 (class 0 OID 215660)
+-- Dependencies: 179
+-- Data for Name: works_for; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 2138 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: works_for_increment; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('works_for_increment', 1, false);
+
+
+--
+-- TOC entry 1957 (class 2606 OID 215825)
+-- Name: emp_bsn_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY employees
+    ADD CONSTRAINT emp_bsn_pk PRIMARY KEY (bsn);
+
+
+--
+-- TOC entry 1971 (class 2606 OID 215669)
+-- Name: pk_address; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY addresses
+    ADD CONSTRAINT pk_address PRIMARY KEY (postal_code, country);
+
+
+--
+-- TOC entry 1967 (class 2606 OID 215659)
+-- Name: pk_assigned; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY assigned
+    ADD CONSTRAINT pk_assigned PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1955 (class 2606 OID 215629)
+-- Name: pk_degree; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY degrees
+    ADD CONSTRAINT pk_degree PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1973 (class 2606 OID 215674)
+-- Name: pk_employeeadresses; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY employee_addresses
+    ADD CONSTRAINT pk_employeeadresses PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1959 (class 2606 OID 215639)
+-- Name: pk_employeedegrees; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY employee_degrees
+    ADD CONSTRAINT pk_employeedegrees PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1975 (class 2606 OID 215679)
+-- Name: pk_employeepositions; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY employee_positions
+    ADD CONSTRAINT pk_employeepositions PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1961 (class 2606 OID 215644)
+-- Name: pk_headquarter; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY headquarters
+    ADD CONSTRAINT pk_headquarter PRIMARY KEY (name);
+
+
+--
+-- TOC entry 1977 (class 2606 OID 215684)
+-- Name: pk_headquarteraddresses; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY headquarter_addresses
+    ADD CONSTRAINT pk_headquarteraddresses PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1963 (class 2606 OID 215649)
+-- Name: pk_position; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY positions
+    ADD CONSTRAINT pk_position PRIMARY KEY (name);
+
+
+--
+-- TOC entry 1969 (class 2606 OID 215664)
+-- Name: pk_worksfor; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY works_for
+    ADD CONSTRAINT pk_worksfor PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1965 (class 2606 OID 215866)
+-- Name: project_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY projects
+    ADD CONSTRAINT project_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1979 (class 2606 OID 215892)
+-- Name: working_on_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY working_on
+    ADD CONSTRAINT working_on_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1991 (class 2606 OID 215893)
+-- Name: emp_bsn_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY working_on
+    ADD CONSTRAINT emp_bsn_fk FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+
+--
+-- TOC entry 1986 (class 2606 OID 215834)
+-- Name: fk_employeeaddresses_0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY employee_addresses
+    ADD CONSTRAINT fk_employeeaddresses_0 FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+
+--
+-- TOC entry 1985 (class 2606 OID 215725)
+-- Name: fk_employeeadresses_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY employee_addresses
+    ADD CONSTRAINT fk_employeeadresses_1 FOREIGN KEY (addr_postal, addr_country) REFERENCES addresses(postal_code, country);
+
+
+--
+-- TOC entry 1980 (class 2606 OID 215690)
+-- Name: fk_employeedegrees_0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY employee_degrees
+    ADD CONSTRAINT fk_employeedegrees_0 FOREIGN KEY (degree_id) REFERENCES degrees(id);
+
+
+--
+-- TOC entry 1981 (class 2606 OID 215844)
+-- Name: fk_employeedegrees_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY employee_degrees
+    ADD CONSTRAINT fk_employeedegrees_1 FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+
+--
+-- TOC entry 1988 (class 2606 OID 215839)
+-- Name: fk_employeepositions_0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY employee_positions
+    ADD CONSTRAINT fk_employeepositions_0 FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+
+--
+-- TOC entry 1987 (class 2606 OID 215735)
+-- Name: fk_employeepositions_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY employee_positions
+    ADD CONSTRAINT fk_employeepositions_1 FOREIGN KEY (name) REFERENCES positions(name);
+
+
+--
+-- TOC entry 1989 (class 2606 OID 215740)
+-- Name: fk_headquarteraddresses_0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY headquarter_addresses
+    ADD CONSTRAINT fk_headquarteraddresses_0 FOREIGN KEY (hq_name) REFERENCES headquarters(name);
+
+
+--
+-- TOC entry 1990 (class 2606 OID 215745)
+-- Name: fk_headquarteraddresses_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY headquarter_addresses
+    ADD CONSTRAINT fk_headquarteraddresses_1 FOREIGN KEY (addr_postal, addr_country) REFERENCES addresses(postal_code, country);
+
+
+--
+-- TOC entry 1983 (class 2606 OID 215872)
+-- Name: fk_projectpositions_0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY assigned
+    ADD CONSTRAINT fk_projectpositions_0 FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- TOC entry 1982 (class 2606 OID 215705)
+-- Name: fk_projectpositions_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY assigned
+    ADD CONSTRAINT fk_projectpositions_1 FOREIGN KEY (position_name) REFERENCES positions(name);
+
+
+--
+-- TOC entry 1984 (class 2606 OID 215715)
+-- Name: fk_worksfor_1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY works_for
+    ADD CONSTRAINT fk_worksfor_1 FOREIGN KEY (hq_name) REFERENCES headquarters(name);
+
+
+--
+-- TOC entry 1992 (class 2606 OID 215898)
+-- Name: project_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY working_on
+    ADD CONSTRAINT project_id_fk FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- TOC entry 2129 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-09-20 14:23:10
+
+--
+-- PostgreSQL database dump complete
+--
+
