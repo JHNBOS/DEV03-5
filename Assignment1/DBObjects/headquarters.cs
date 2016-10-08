@@ -12,8 +12,8 @@ namespace Assignment1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public headquarters()
         {
+            employees = new HashSet<employees>();
             headquarter_addresses = new HashSet<headquarter_addresses>();
-            works_for = new HashSet<works_for>();
         }
 
         [Key]
@@ -25,9 +25,9 @@ namespace Assignment1
         public decimal? rent { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<headquarter_addresses> headquarter_addresses { get; set; }
+        public virtual ICollection<employees> employees { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<works_for> works_for { get; set; }
+        public virtual ICollection<headquarter_addresses> headquarter_addresses { get; set; }
     }
 }

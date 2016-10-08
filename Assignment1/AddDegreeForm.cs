@@ -57,15 +57,9 @@ namespace Assignment1
                 newDegree.course = course;
                 newDegree.level = level;
                 newDegree.school = school;
+                newDegree.emp_bsn = EmpBSN;
 
                 data.degrees.Add(newDegree);
-                data.SaveChanges();
-
-                employee_degrees employeeDegree = new employee_degrees();
-                employeeDegree.degree_id = newDegree.id;
-                employeeDegree.emp_bsn = EmpBSN;
-
-                data.employee_degrees.Add(employeeDegree);
                 data.SaveChanges();
 
                 MessageBox.Show("Degree added!");

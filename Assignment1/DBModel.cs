@@ -16,7 +16,6 @@ namespace Assignment1
         public virtual DbSet<assigned> assigned { get; set; }
         public virtual DbSet<degrees> degrees { get; set; }
         public virtual DbSet<employee_addresses> employee_addresses { get; set; }
-        public virtual DbSet<employee_degrees> employee_degrees { get; set; }
         public virtual DbSet<employee_positions> employee_positions { get; set; }
         public virtual DbSet<employees> employees { get; set; }
         public virtual DbSet<headquarter_addresses> headquarter_addresses { get; set; }
@@ -24,7 +23,6 @@ namespace Assignment1
         public virtual DbSet<positions> positions { get; set; }
         public virtual DbSet<projects> projects { get; set; }
         public virtual DbSet<working_on> working_on { get; set; }
-        public virtual DbSet<works_for> works_for { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -39,18 +37,13 @@ namespace Assignment1
                 .WithOptional(e => e.addresses)
                 .HasForeignKey(e => new { e.addr_postal, e.addr_country });
 
-            modelBuilder.Entity<degrees>()
-                .HasMany(e => e.employee_degrees)
-                .WithOptional(e => e.degrees)
-                .HasForeignKey(e => e.degree_id);
-
             modelBuilder.Entity<employees>()
-                .HasMany(e => e.employee_addresses)
+                .HasMany(e => e.degrees)
                 .WithOptional(e => e.employees)
                 .HasForeignKey(e => e.emp_bsn);
 
             modelBuilder.Entity<employees>()
-                .HasMany(e => e.employee_degrees)
+                .HasMany(e => e.employee_addresses)
                 .WithOptional(e => e.employees)
                 .HasForeignKey(e => e.emp_bsn);
 
@@ -69,12 +62,12 @@ namespace Assignment1
                 .HasPrecision(10, 2);
 
             modelBuilder.Entity<headquarters>()
-                .HasMany(e => e.headquarter_addresses)
+                .HasMany(e => e.employees)
                 .WithOptional(e => e.headquarters)
-                .HasForeignKey(e => e.hq_name);
+                .HasForeignKey(e => e.headquarter);
 
             modelBuilder.Entity<headquarters>()
-                .HasMany(e => e.works_for)
+                .HasMany(e => e.headquarter_addresses)
                 .WithOptional(e => e.headquarters)
                 .HasForeignKey(e => e.hq_name);
 

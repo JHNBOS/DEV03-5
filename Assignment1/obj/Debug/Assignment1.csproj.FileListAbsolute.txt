@@ -25,3 +25,4 @@ D:\Johan Bos\Documents\Visual Studio 2015\Projects\DEV03-5\Assignment1\obj\Debug
 D:\Johan Bos\Documents\Visual Studio 2015\Projects\DEV03-5\Assignment1\obj\Debug\Assignment1.csproj.GenerateResource.Cache
 D:\Johan Bos\Documents\Visual Studio 2015\Projects\DEV03-5\Assignment1\obj\Debug\Assignment1.exe
 D:\Johan Bos\Documents\Visual Studio 2015\Projects\DEV03-5\Assignment1\obj\Debug\Assignment1.pdb
+D:\Johan Bos\Documents\Visual Studio 2015\Projects\DEV03-5\Assignment1\obj\Debug\Assignment1.csprojResolveAssemblyReference.cache

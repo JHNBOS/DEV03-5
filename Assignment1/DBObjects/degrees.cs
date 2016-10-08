@@ -9,12 +9,6 @@ namespace Assignment1
     [Table("public.degrees")]
     public partial class degrees
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public degrees()
-        {
-            employee_degrees = new HashSet<employee_degrees>();
-        }
-
         public int id { get; set; }
 
         [StringLength(30)]
@@ -26,7 +20,9 @@ namespace Assignment1
         [StringLength(20)]
         public string level { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<employee_degrees> employee_degrees { get; set; }
+        [StringLength(10)]
+        public string emp_bsn { get; set; }
+
+        public virtual employees employees { get; set; }
     }
 }

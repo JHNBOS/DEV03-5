@@ -33,6 +33,7 @@ namespace Assignment1
             AssignProjectButton.Enabled = false;
             RemoveAssignButton.Enabled = false;
             UpdateButton.Enabled = false;
+            residenceBox.ReadOnly = true;
 
             //Execute methods
             FillComboBox();
@@ -85,30 +86,30 @@ namespace Assignment1
             {
                 //Instance of employee object of selected employee
                 selectedEmployee = data.employees.Where(em => em.name == firstName && em.surname == lastName).FirstOrDefault();
+
+                //employee info
+                string bsn = selectedEmployee.bsn;
+                string residence = selectedEmployee.residence;
+
+                //Set text of TextBoxes in form
+                bsnBox.Text = bsn;
+                fnameBox.Text = firstName;
+                surnameBox.Text = lastName;
+                residenceBox.Text = residence;
+
+                //Get Address(es) from other method
+                //Get Position(s) from other method
+                //Get Degree(s) from other method
+                GetAddress(bsn);
+                GetEmployeePositions(firstName, lastName, bsn);
+                GetDegrees(bsn);
+                GetProjects(bsn);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Problem with finding employee!");
                 Console.WriteLine(ex);
             }
-            
-            //employee info
-            string bsn = selectedEmployee.bsn;
-            string residence = selectedEmployee.postal_code;
-
-            //Set text of TextBoxes in form
-            bsnBox.Text = bsn;
-            fnameBox.Text = firstName;
-            surnameBox.Text = lastName;
-            residenceBox.Text = residence;
-
-            //Get Address(es) from other method
-            //Get Position(s) from other method
-            //Get Degree(s) from other method
-            GetAddress(bsn);
-            GetEmployeePositions(firstName, lastName, bsn);
-            GetDegrees(bsn);
-            GetProjects(bsn);
         }
 
         private void GetEmployeePositions(string firstname, string surname, string bsn)
@@ -157,7 +158,6 @@ namespace Assignment1
             try
             {
                 workingOnList = data.working_on.Where(w => w.emp_bsn == bsn).ToList();
-
 
                 foreach (var working in workingOnList)
                 {
@@ -221,23 +221,16 @@ namespace Assignment1
 
         private void GetDegrees(string bsn)
         {
-            //Lists
+            //Instance of selected employee and list
             employees selectedEmployee = null;
-            List<employee_degrees> employeeDegreesList = null;
             List<degrees> selectedDegreesList = new List<degrees>();
 
             try
             {
                 //Instance of employee object of selected employee
-                //employee_degrees junction list
                 selectedEmployee = data.employees.Where(em => em.bsn == bsn).FirstOrDefault();
-                employeeDegreesList = data.employee_degrees.Where(ed => ed.emp_bsn == bsn).ToList();
 
-                foreach (var ed in employeeDegreesList)
-                {
-                    degrees degree = data.degrees.Where(d => d.id == ed.degree_id).FirstOrDefault();
-                    selectedDegreesList.Add(degree);
-                }
+                selectedDegreesList = data.degrees.Where(d => d.emp_bsn == selectedEmployee.bsn).ToList();
             }
             catch (Exception ex)
             {
@@ -340,7 +333,7 @@ namespace Assignment1
                 employee.bsn = bsn;
                 employee.name = firstName;
                 employee.surname = surName;
-                employee.postal_code = residence;
+                employee.residence = residence;
 
                 data.employees.Add(employee);
                 data.SaveChanges();
@@ -384,6 +377,8 @@ namespace Assignment1
             AssignProjectButton.Enabled = true;
             RemoveAssignButton.Enabled = true;
 
+            residenceBox.Enabled = true;
+
             //Readonly to false;
             bsnBox.ReadOnly = true;
             fnameBox.ReadOnly = false;
@@ -400,14 +395,14 @@ namespace Assignment1
             newEmployee.bsn = bsnBox.Text;
             newEmployee.name = fnameBox.Text;
             newEmployee.surname = surnameBox.Text;
-            newEmployee.postal_code = residenceBox.Text;
+            newEmployee.residence = residenceBox.Text;
 
-            string query = "UPDATE employees SET name=@P0, surname=@P1, postal_code=@P2 WHERE bsn=@P3";
+            string query = "UPDATE employees SET name=@P0, surname=@P1, residence=@P2 WHERE bsn=@P3";
 
             List<object> parameterList = new List<object>();
             parameterList.Add(newEmployee.name);
             parameterList.Add(newEmployee.surname);
-            parameterList.Add(newEmployee.postal_code);
+            parameterList.Add(newEmployee.residence);
             parameterList.Add(newEmployee.bsn);
 
             object[] parameters = parameterList.ToArray();
@@ -451,11 +446,11 @@ namespace Assignment1
                     employees deleteEmployee = data.employees.Where(emp => emp.name == firstName && emp.surname == lastName).FirstOrDefault();
                     List<employee_addresses> deleteEAList = data.employee_addresses.Where(ea => ea.emp_bsn == deleteEmployee.bsn).ToList();
                     List<employee_positions> deletePositionsList = data.employee_positions.Where(ep => ep.emp_bsn == deleteEmployee.bsn).ToList();
-                    List<employee_degrees> deleteDegreeList = data.employee_degrees.Where(ep => ep.emp_bsn == deleteEmployee.bsn).ToList();
+                    List<degrees> deleteDegreeList = data.degrees.Where(ep => ep.emp_bsn == deleteEmployee.bsn).ToList();
 
                     data.employee_addresses.RemoveRange(deleteEAList);
                     data.employee_positions.RemoveRange(deletePositionsList);
-                    data.employee_degrees.RemoveRange(deleteDegreeList);
+                    data.degrees.RemoveRange(deleteDegreeList);
                     data.employees.Remove(deleteEmployee);
 
                     data.SaveChanges();
@@ -540,9 +535,7 @@ namespace Assignment1
 
                     degrees deleteDegree = data.degrees.Where(d => d.school == school && d.course == course
                     && d.level == level).FirstOrDefault();
-                    employee_degrees deleteEmployeeDegree = data.employee_degrees.Where(ed => ed.degree_id == deleteDegree.id).FirstOrDefault();
 
-                    data.employee_degrees.Remove(deleteEmployeeDegree);
                     data.degrees.Remove(deleteDegree);
                     data.SaveChanges();
 

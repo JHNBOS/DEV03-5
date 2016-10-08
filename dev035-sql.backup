@@ -1,0 +1,228 @@
+// BEGIN OF CREATE TABLE AND CREATE SEQUENCE //
+----------------------------------------------
+CREATE TABLE addresses (
+    postal_code character varying(10) NOT NULL,
+    country character varying(30) NOT NULL,
+    street character varying(25) NOT NULL,
+    number character varying(4) NOT NULL,
+    city character varying(25) NOT NULL,
+);
+
+
+CREATE SEQUENCE assigned_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+CREATE TABLE assigned (
+    id integer DEFAULT nextval('assigned_increment'::regclass) NOT NULL,
+    position_name character varying(25) NOT NULL,
+    project_id text NOT NULL
+);
+
+
+CREATE SEQUENCE degrees_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+CREATE TABLE degrees (
+    id integer DEFAULT nextval('degrees_increment'::regclass) NOT NULL,
+    course character varying(30) NOT NULL,
+    school character varying(30) NOT NULL,
+    level character varying(20) NOT NULL,
+    emp_bsn character varying(10) NOT NULL
+);
+
+
+CREATE SEQUENCE employee_addresses_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+CREATE TABLE employee_addresses (
+    id integer DEFAULT nextval('employee_addresses_increment'::regclass) NOT NULL,
+    addr_postal character varying(10) NOT NULL,
+    addr_country character varying(30) NOT NULL,
+    emp_bsn character varying(10) NOT NULL
+);
+
+
+CREATE SEQUENCE employee_degrees_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+CREATE SEQUENCE employee_positions_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+CREATE TABLE employee_positions (
+    id integer DEFAULT nextval('employee_positions_increment'::regclass) NOT NULL,
+    name character varying(25) NOT NULL,
+    emp_bsn character varying(10) NOT NULL
+);
+
+
+CREATE TABLE employees (
+    name character varying(20) NOT NULL,
+    surname character varying(20) NOT NULL,
+    residence character varying(10),
+    bsn character varying(10) NOT NULL,
+    headquarter character varying(25)
+);
+
+
+CREATE SEQUENCE headquarter_addresses_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+	
+CREATE TABLE headquarter_addresses (
+    id integer DEFAULT nextval('headquarter_addresses_increment'::regclass) NOT NULL,
+    hq_name character varying(25) NOT NULL,
+    addr_postal character varying(10) NOT NULL,
+    addr_country character varying(30) NOT NULL
+);
+
+
+CREATE TABLE headquarters (
+    name character varying(25) NOT NULL,
+    rooms integer,
+    rent numeric(10,2)
+);
+
+
+CREATE TABLE positions (
+    name character varying(25) NOT NULL,
+    description character varying(150),
+    fee numeric(10,2)
+);
+
+
+CREATE TABLE projects (
+    budget numeric(10,2),
+    total_hours integer,
+    headquarter text NOT NULL,
+    name text NOT NULL,
+    id text NOT NULL
+);
+
+
+
+CREATE SEQUENCE working_on_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+	
+CREATE TABLE working_on (
+    id integer DEFAULT nextval('working_on_increment'::regclass) NOT NULL,
+    emp_bsn text NOT NULL,
+    project_id text NOT NULL
+);
+
+
+CREATE SEQUENCE works_for_increment
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+---------------------------------------------
+// END OF CREATE TABLE AND CREATE SEQUENCE //
+
+
+// BEGIN OF PK AND FK //
+------------------------
+ALTER TABLE employees
+ADD CONSTRAINT emp_bsn_pk PRIMARY KEY (bsn);
+
+ALTER TABLE addresses
+ADD CONSTRAINT pk_address PRIMARY KEY (postal_code, country);
+
+ALTER TABLE assigned
+ADD CONSTRAINT pk_assigned PRIMARY KEY (id);
+
+ALTER TABLE degrees
+ADD CONSTRAINT pk_degree PRIMARY KEY (id);
+
+ALTER TABLE employee_addresses
+ADD CONSTRAINT pk_employeeadresses PRIMARY KEY (id);
+
+ALTER TABLE employee_positions
+ADD CONSTRAINT pk_employeepositions PRIMARY KEY (id);
+
+ALTER TABLE headquarters
+ADD CONSTRAINT pk_headquarter PRIMARY KEY (name);
+
+ALTER TABLE headquarter_addresses
+ADD CONSTRAINT pk_headquarteraddresses PRIMARY KEY (id);
+
+ALTER TABLE positions
+ADD CONSTRAINT pk_position PRIMARY KEY (name);
+
+ALTER TABLE projects
+ADD CONSTRAINT project_pk PRIMARY KEY (id);
+
+ALTER TABLE working_on
+ADD CONSTRAINT working_on_pk PRIMARY KEY (id);
+
+ALTER TABLE degrees
+ADD CONSTRAINT degree_emp_fk FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+ALTER TABLE working_on
+ADD CONSTRAINT emp_bsn_fk FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+ALTER TABLE employees
+ADD CONSTRAINT emp_hq_fk FOREIGN KEY (headquarter) REFERENCES headquarters(name);
+
+ALTER TABLE employee_addresses
+ADD CONSTRAINT fk_employeeaddresses_0 FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+ALTER TABLE employee_addresses
+ADD CONSTRAINT fk_employeeadresses_1 FOREIGN KEY (addr_postal, addr_country) REFERENCES addresses(postal_code, country);
+
+ALTER TABLE employee_positions
+ADD CONSTRAINT fk_employeepositions_0 FOREIGN KEY (emp_bsn) REFERENCES employees(bsn);
+
+ALTER TABLE employee_positions
+ADD CONSTRAINT fk_employeepositions_1 FOREIGN KEY (name) REFERENCES positions(name);
+
+ALTER TABLE headquarter_addresses
+ADD CONSTRAINT fk_headquarteraddresses_0 FOREIGN KEY (hq_name) REFERENCES headquarters(name);
+
+ALTER TABLE headquarter_addresses
+ADD CONSTRAINT fk_headquarteraddresses_1 FOREIGN KEY (addr_postal, addr_country) REFERENCES addresses(postal_code, country);
+
+ALTER TABLE assigned
+ADD CONSTRAINT fk_projectpositions_0 FOREIGN KEY (project_id) REFERENCES projects(id);
+
+ALTER TABLE assigned
+ADD CONSTRAINT fk_projectpositions_1 FOREIGN KEY (position_name) REFERENCES positions(name);
+
+ALTER TABLE working_on
+ADD CONSTRAINT project_id_fk FOREIGN KEY (project_id) REFERENCES projects(id);
+----------------------
+// END OF PK AND FK //

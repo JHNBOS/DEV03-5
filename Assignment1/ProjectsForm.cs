@@ -333,9 +333,6 @@ namespace Assignment1
             pnameBox.ReadOnly = false;
             budgetBox.ReadOnly = false;
             hoursBox.ReadOnly = false;
-
-            //Reset text
-            hqComboBox.ResetText();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
